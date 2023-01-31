@@ -16,7 +16,7 @@ function GuessInput({ handleGuess, guesses }) {
         }
       }}
     >
-      <label for="guess-input">Enter guess:</label>
+      <label htmlFor="guess-input">Enter guess:</label>
       <input
         id="guess-input"
         name="guess"
