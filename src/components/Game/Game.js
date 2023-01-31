@@ -13,29 +13,39 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
+  const [answer, setAnswer] = React.useState(() => sample(WORDS));
   const [guesses, setGuesses] = React.useState([]);
   const [didWin, setDidWin] = React.useState(false);
+  const isOver = guesses.length >= NUM_OF_GUESSES_ALLOWED;
+
+  function resetGame() {
+    setAnswer(sample(WORDS));
+    setGuesses([]);
+    setDidWin(false);
+  }
 
   return (
     <>
       <GuessList guesses={guesses} answer={answer} />
-      {guesses.length < NUM_OF_GUESSES_ALLOWED && (
-        <GuessInput
-          guesses={guesses}
-          handleGuess={(guess) => {
-            setGuesses((g) => [...g, guess]);
-            setDidWin(
-              guesses.length >= NUM_OF_GUESSES_ALLOWED || guess === answer
-            );
-          }}
-        />
-      )}
-      {(guesses.length >= NUM_OF_GUESSES_ALLOWED || didWin) && (
+
+      <GuessInput
+        guesses={guesses}
+        handleGuess={(guess) => {
+          setGuesses((g) => [...g, guess]);
+          setDidWin(guess === answer);
+        }}
+      />
+
+      {(isOver || didWin) && (
         <MoodBanner
           mood={didWin ? "happy" : "sad"}
           guessCount={guesses.length}
           answer={answer}
-        />
+        >
+          <button onClick={resetGame}>
+            <strong>Play again</strong>
+          </button>
+        </MoodBanner>
       )}
     </>
   );

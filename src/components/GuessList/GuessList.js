@@ -12,20 +12,24 @@ function GuessList({ guesses, answer }) {
       {grid.map((id, i) => {
         const guess = guesses[i];
         const characters = checkGuess(guess, answer);
-        return (
-          <p className="guess" key={id}>
-            {wordRow.map((rowId, i) => (
-              <span
-                key={rowId}
-                className={`cell ${characters ? characters[i].status : ""}`}
-              >
-                {characters && characters[i].letter}
-              </span>
-            ))}
-          </p>
-        );
+        return <Guess key={id} characters={characters} />;
       })}
     </div>
+  );
+}
+
+function Guess({ characters }) {
+  return (
+    <p className="guess">
+      {wordRow.map((id, i) => (
+        <span
+          key={id}
+          className={`cell ${characters ? characters[i].status : ""}`}
+        >
+          {characters && characters[i].letter}
+        </span>
+      ))}
+    </p>
   );
 }
 

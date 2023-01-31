@@ -1,6 +1,6 @@
 import React from "react";
 
-function MoodBanner({ mood, guessCount, answer }) {
+function MoodBanner({ mood, guessCount, answer, children }) {
   return (
     <div className={`${mood} banner`}>
       {mood === "happy" && (
@@ -14,6 +14,7 @@ function MoodBanner({ mood, guessCount, answer }) {
           Sorry, the correct answer is <strong>{answer}</strong>.
         </p>
       )}
+      {children}
     </div>
   );
 }
